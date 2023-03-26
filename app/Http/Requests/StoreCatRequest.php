@@ -33,6 +33,8 @@ class StoreCatRequest extends FormRequest
             'colour' => ['required', 'in:grey,orange,black'],
             'temperament' => ['required', 'in:quiet,medium,big'],
             'size' => ['required', 'in:small,medium,large'],
+            'image' => ['required'],
+
 
         ];
     }

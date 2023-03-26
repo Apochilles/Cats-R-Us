@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('colour');
             $table->string('temperament');
             $table->string('size');
+            $table->string('image');
             $table->timestamps();
         });
     }
