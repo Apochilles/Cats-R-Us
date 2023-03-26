@@ -36,10 +36,9 @@ class CatController extends Controller
         return response()->json("Cat Updated");
     }
 
-    public function delete(StoreCatRequest $request, Cat $cat)
+    public function destroy(Cat $cat)
     {
-
-        $cat->delete($request->validated());
+        $cat->delete();
         return response()->json("Cat Deleted");
     }
 }
