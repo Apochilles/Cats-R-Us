@@ -9,5 +9,5 @@ class Cat extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'slug', 'fivstatus', 'gender', 'description', 'colour', 'temperment', 'size'];
+    protected $fillable = ['name', 'slug', 'fiv', 'gender', 'description', 'colour', 'temperament', 'size'];
 }

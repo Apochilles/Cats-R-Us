@@ -15,11 +15,11 @@ return new class extends Migration
             $table->id();
             $table->string("name");
             $table->string("slug");
-            $table->string('fivstatus');
+            $table->string('fiv');
             $table->string('gender');
             $table->string('description');
             $table->string('colour');
-            $table->string('temperment');
+            $table->string('temperament');
             $table->string('size');
             $table->timestamps();
         });

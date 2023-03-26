@@ -27,11 +27,11 @@ class StoreCatRequest extends FormRequest
             'name' => ['required', 'min:3', 'max:20'],
             // 'slug' => ['required', 'unique:cats,slug' . $this->cat->id],
             'slug' => ['required', Rule::unique('cats')->ignore($this->cat)],
-            'fivstatus' => ['required', 'in:positive,negative'],
+            'fiv' => ['required', 'in:positive,negative'],
             'gender' => ['required', 'in:male,female'],
             'description' => ['required', 'min:10', 'max:150'],
             'colour' => ['required', 'in:grey,orange,black'],
-            'temperment' => ['required', 'in:quiet,medium,big'],
+            'temperament' => ['required', 'in:quiet,medium,big'],
             'size' => ['required', 'in:small,medium,large'],
 
         ];

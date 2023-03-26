@@ -18,6 +18,13 @@ class CatResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'slug' => $this->slug,
+            'fiv' => $this->fiv,
+            'gender' => $this->gender,
+            'description' => $this->description,
+            'colour' => $this->colour,
+            'temperament' => $this->temperament,
+            'size' => $this->size,
+
 
         ];
     }
