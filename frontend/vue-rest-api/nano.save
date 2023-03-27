@@ -1,0 +1,13 @@
+     <div class="form-group">
+                <label for="slug">Slug</label>
+                <input
+                    type="text"
+                    v-model="form.slug"
+                    id="slug"
+                    class="form-control"
+                    placeholder="Enter slug"
+                />
+                <div v-if="errors.name">
+                    <span> {{ errors.slug[0] }} </span>
+                </div>
+            </div>

@@ -24,7 +24,8 @@ export default function useCats() {
             await router.push({ name: "CatIndex" });
         } catch (error) {
             if (error.response.status === 422) {
-                ErrorCodes.value = error.response.data.errors;
+                errors.value = error.response.data.errors;
+                console.log(error);
             }
         }
     };
