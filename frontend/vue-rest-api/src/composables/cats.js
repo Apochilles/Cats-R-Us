@@ -15,7 +15,7 @@ export default function useCats() {
         cats.value = response.data.data;
     };
     const getCat = async (id) => {
-        const response = await axios.get("cats" + id);
+        const response = await axios.get("cats/" + id);
         cat.value = response.data.data;
     };
     const storeCat = async (data) => {

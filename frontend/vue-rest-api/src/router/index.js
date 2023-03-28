@@ -15,6 +15,12 @@ const router = createRouter({
             component: () => import("../views/cats/CatIndex.vue"),
         },
         {
+            path: "/cat/:id",
+            name: "CatView",
+            component: () => import("../views/cats/CatView.vue"),
+            props: true,
+        },
+        {
             path: "/cats/create",
             name: "CatCreate",
             component: () => import("../views/cats/CatCreate.vue"),
@@ -23,12 +29,13 @@ const router = createRouter({
             path: "/cats/:id/edit",
             name: "CatEdit",
             component: () => import("../views/cats/CatEdit.vue"),
+            props: true,
         },
-        //             {
-        //   path: '/cats/:id/delete',
-        //   name: 'CatDelete',
-        //   component: () => import('../views/cats/CatDelete.vue')
-        // }
+        {
+            path: "/cats/:id/delete",
+            name: "CatDelete",
+            component: () => import("../views/cats/CatDelete.vue"),
+        },
     ],
 });
 
