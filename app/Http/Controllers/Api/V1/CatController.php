@@ -41,4 +41,10 @@ class CatController extends Controller
         $cat->delete();
         return response()->json("Cat Deleted");
     }
+    public function search()
+    {
+        $searchQuery = request('query');
+
+        dd($searchQuery);
+    }
 }
