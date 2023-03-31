@@ -3,42 +3,80 @@ import { RouterLink, RouterView } from "vue-router";
 </script>
 
 <template>
+    <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Navbar</a>
-        <button
-            class="navbar-toggler"
-            type="button"
-            data-toggle="collapse"
-            data-target="#navbarNavDropdown"
-            aria-controls="navbarNavDropdown"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-        >
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavDropdown">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <RouterLink class="nav-link active" to="/cats"
-                        >Index</RouterLink
-                    >
-                </li>
-                <li class="nav-item">
-                    <RouterLink class="nav-link active" to="/cats/create"
-                        >Create</RouterLink
-                    >
-                </li>
-                <li class="nav-item">
-                    <RouterLink class="nav-link active" to="/cats/:id/edit"
-                        >Edit</RouterLink
-                    >
-                </li>
-                <li class="nav-item">
-                    <RouterLink class="nav-link active" to="/cats/:id/delete"
-                        >Delete</RouterLink
-                    >
-                </li>
-            </ul>
+        <div class="container px-4 px-lg-5">
+            <a class="navbar-brand">CATS R US</a>
+            <button
+                class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+            >
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                    <li class="nav-item">
+                        <RouterLink class="nav-link active" to="/"
+                            >Home</RouterLink
+                        >
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a
+                            class="nav-link dropdown-toggle"
+                            id="navbarDropdown"
+                            href="#"
+                            role="button"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false"
+                            >Cats</a
+                        >
+                        <ul
+                            class="dropdown-menu"
+                            aria-labelledby="navbarDropdown"
+                        >
+                            <li class="dropdown-item">
+                                <RouterLink
+                                    class="nav-link active"
+                                    to="/listings"
+                                    >Listings</RouterLink
+                                >
+                            </li>
+                            <li><hr class="dropdown-divider" /></li>
+                            <li>
+                                <a class="dropdown-item" href="#!"
+                                    >Popular Items</a
+                                >
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#!"
+                                    >New Arrivals</a
+                                >
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <RouterLink class="nav-link active" to="/cats/create"
+                            >Create</RouterLink
+                        >
+                    </li>
+                </ul>
+
+                <form class="d-flex">
+                    <button class="btn btn-outline-dark" type="submit">
+                        <i class="bi-cart-fill me-1"></i>
+                        Cart
+                        <span class="badge bg-dark text-white ms-1 rounded-pill"
+                            >0</span
+                        >
+                    </button>
+                </form>
+            </div>
         </div>
     </nav>
     <RouterView />

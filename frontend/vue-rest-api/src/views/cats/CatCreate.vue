@@ -1,7 +1,6 @@
 <script setup>
 import { reactive } from "vue";
 import useCats from "../../composables/cats";
-import { filterTodo, resetTodo } from "../../composables/cats";
 
 const { storeCat, errors } = useCats();
 

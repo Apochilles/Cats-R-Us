@@ -30,7 +30,7 @@ const temperaments = ref([]);
 //     }
 // });
 
-const computedProducts = computed(() => {
+const computedCats = computed(() => {
     return cats.value.filter((cat) => {
         return (
             (keyword.value.length === 0 || cat.name.includes(keyword.value)) &&
@@ -47,87 +47,64 @@ const computedProducts = computed(() => {
 });
 </script>
 <template>
-    <div class="container mx-auto mt-4">
-        <p><strong>Keyword:</strong><input type="text" v-model="keyword" /></p>
+    <!DOCTYPE html>
+    <html lang="en">
+        <head>
+            <meta charset="utf-8" />
+            <meta
+                name="viewport"
+                content="width=device-width, initial-scale=1, shrink-to-fit=no"
+            />
+            <meta name="description" content="" />
+            <meta name="author" content="" />
+            <title>Shop Homepage - Start Bootstrap Template</title>
+            <!-- Favicon-->
+            <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+            <!-- Bootstrap icons-->
+            <link
+                href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
+                rel="stylesheet"
+            />
+            <!-- Core theme CSS (includes Bootstrap)-->
+            <link href="css/styles.css" rel="stylesheet" />
+        </head>
+        <body>
+            <!-- Header-->
+            <header class="py-5">
+                <div class="container px-4 px-lg-5 my-5">
+                    <div id="show_bg_2"></div>
 
-        <p>
-            <strong>Gender:</strong> Male:
-            <input type="checkbox" v-model="genders" value="male" /> Female:
-            <input type="checkbox" v-model="genders" value="female" />
-        </p>
-
-        <p>
-            <strong>Sizes:</strong> Small:
-            <input type="checkbox" v-model="sizes" value="small" />
-            Medium:
-            <input type="checkbox" v-model="sizes" value="medium" />
-            Large:
-            <input type="checkbox" v-model="sizes" value="large" />
-        </p>
-        <p>
-            <strong>Temperament:</strong> Quiet:
-            <input type="checkbox" v-model="temperaments" value="quiet" />
-            Medium:
-            <input type="checkbox" v-model="temperaments" value="" />
-            Big:
-            <input type="checkbox" v-model="temperaments" value="big" />
-        </p>
-        <p>
-            <strong>Colour:</strong> Grey:
-            <input type="checkbox" v-model="colours" value="grey" />
-            Orange:
-            <input type="checkbox" v-model="colours" value="orange" />
-            Black:
-            <input type="checkbox" v-model="colours" value="black" />
-        </p>
-        <p>
-            <strong>Fiv:</strong> Positive:
-            <input type="checkbox" v-model="fivStatus" value="positive" />
-            Negative:
-            <input type="checkbox" v-model="fivStatus" value="negative" />
-        </p>
-        <div class="main"></div>
-        <div class="row">
-            <!-- <div class="col-md-4" v-for="(fcats, i) in filteredCat" :key="i"> -->
-            <div
-                class="col-md-4"
-                v-for="(cat, index) in computedProducts"
-                :key="index"
-            >
-                <!-- <router-link
-                    style="text-decoration: none; color: inherit"
-                    :to="{
-                        name: 'CatView',
-                        params: {
-                            id: cats.id,
-                        },
-                    }"
-                > -->
-                <div class="card" style="width: 18rem">
-                    <img :src="cat.image" />
-
-                    <div class="card-body">
-                        <h5 class="card-title">{{ cat.name }}</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">
-                            {{ cat.sex }} {{ cat.colour }}
-                            {{ cat.temperament }}
-                            {{ cat.gender }}
-                            {{ cat.size }}
-                            {{ cat.fiv }}
-                        </h6>
-                        <p class="card-text">
-                            {{ cat.description }}
+                    <div class="text-center text-black">
+                        <h1 class="display-4 fw-bolder">
+                            Find your new FURever Friend
+                        </h1>
+                        <p class="lead fw-normal text-white-50 mb-0">
+                            With this shop hompeage template
                         </p>
-                        <a href="#" class="btn mr-2"
-                            ><i class="fas fa-link"></i> Visit Site</a
-                        >
-                        <a href="#" class="btn"
-                            ><i class="fab fa-github"></i> Github</a
-                        >
                     </div>
                 </div>
-                <!-- </router-link> -->
-            </div>
-        </div>
-    </div>
+            </header>
+            <!-- Section-->
+            <section class="py-5">
+                <div class="container px-4 px-lg-5 mt-5">
+                    <div
+                        class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center"
+                    >
+                        <!-- Product actions-->
+                        <div
+                            class="card-footer p-4 pt-0 border-top-0 bg-transparent"
+                        ></div>
+                    </div>
+                </div>
+            </section>
+            <!-- Footer-->
+            <footer class="py-5 bg-dark">
+                <div class="container">
+                    <p class="m-0 text-center text-white">
+                        Copyright &copy; Your Website 2023
+                    </p>
+                </div>
+            </footer>
+        </body>
+    </html>
 </template>

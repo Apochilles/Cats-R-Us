@@ -4,9 +4,14 @@ const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes: [
         {
-            path: "/cats",
+            path: "/",
             name: "CatIndex",
             component: () => import("../views/cats/CatIndex.vue"),
+        },
+        {
+            path: "/listings",
+            name: "CatListing",
+            component: () => import("../views/cats/CatListing.vue"),
         },
         {
             path: "/cat/:id",
