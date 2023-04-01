@@ -11,16 +11,24 @@ return new class extends Migration
      */
     public function up(): void
     {
+        echo "it does something";
         Schema::create('cats', function (Blueprint $table) {
             $table->id();
             $table->string("name");
             $table->string("slug");
-            $table->string('fiv');
-            $table->string('gender');
             $table->string('description');
-            $table->string('colour');
-            $table->string('temperament');
-            $table->string('size');
+            $table->string('breed');
+            $table->unsignedSmallInteger('fee');
+            $table->enum('temperament', ['shy', 'average', 'confident']);
+            $table->enum('size', ['small', 'medium', 'large']);
+            $table->enum('fur', ['short', 'long']);
+            $table->enum('desexed', ['yes', 'no']);
+            $table->enum('vaccinated', ['yes', 'no']);
+            $table->enum('wormed', ['yes', 'no']);
+            $table->enum('fiv', ['positive', 'negative']);
+            $table->enum('gender', ['male', 'female']);
+            $table->enum('status', ['available', 'adopted']);
+            $table->date('age');
             $table->string('image');
             $table->timestamps();
         });
