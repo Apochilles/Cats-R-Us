@@ -30,7 +30,7 @@ const temperaments = ref([]);
 //     }
 // });
 
-const computedProducts = computed(() => {
+const computedCats = computed(() => {
     return cats.value.filter((cat) => {
         return (
             (keyword.value.length === 0 || cat.name.includes(keyword.value)) &&
@@ -91,7 +91,7 @@ const computedProducts = computed(() => {
             <!-- <div class="col-md-4" v-for="(fcats, i) in filteredCat" :key="i"> -->
             <div
                 class="col-md-4"
-                v-for="(cat, index) in computedProducts"
+                v-for="(cat, index) in computedCats"
                 :key="index"
             >
                 <router-link

@@ -30,7 +30,7 @@ const temperaments = ref([]);
 //     }
 // });
 
-const computedCats = computed(() => {
+const catCategories = computed(() => {
     return cats.value.filter((cat) => {
         return (
             (keyword.value.length === 0 || cat.name.includes(keyword.value)) &&
@@ -44,6 +44,10 @@ const computedCats = computed(() => {
             (colours.value.length === 0 || colours.value.includes(cat.colour))
         );
     });
+});
+
+const catCount = computed(() => {
+    return cats.value.length;
 });
 </script>
 <template>
@@ -84,13 +88,42 @@ const computedCats = computed(() => {
                     </div>
                 </div>
             </header>
+            <div>
+                <div class="container px-4 px-lg-5 my-5">
+                    <div class="text-center text-black">
+                        <div class="display-4 fw-bolder">
+                            <p class="lead">
+                                Search {{ catCount }} adoptable cats from rescue
+                                groups, shelters, and pounds across the nation!
+                            </p>
+                        </div>
+                        <p class="lead fw-normal text-white-50 mb-0">
+                            With this shop hompeage template
+                        </p>
+                    </div>
+                </div>
+            </div>
             <!-- Section-->
             <section class="py-5">
                 <div class="container px-4 px-lg-5 mt-5">
                     <div
                         class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center"
                     >
-                        <!-- Product actions-->
+                        <div class="col mb-5">
+                            <div class="card h-100">
+                                <p>Find a kitten</p>
+                            </div>
+                        </div>
+                        <div class="col mb-5">
+                            <div class="card h-100">
+                                <p>Find a adult</p>
+                            </div>
+                        </div>
+                        <div class="col mb-5">
+                            <div class="card h-100">
+                                <p>Find a Senior</p>
+                            </div>
+                        </div>
                         <div
                             class="card-footer p-4 pt-0 border-top-0 bg-transparent"
                         ></div>
