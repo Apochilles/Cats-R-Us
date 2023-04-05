@@ -12,8 +12,16 @@ class CatController extends Controller
 {
     public function index()
     {
-        return CatResource::collection(Cat::all());
+        $cats = Cat::withFilters(
+            request()->input('age', []),
+            request()->input('gender', []),
+            request()->input('size', [])
+        )->get();
+
+        // return CatResource::collection(Cat::all());
+        return CatResource::collection($cats);
     }
+
 
     public function show(Cat $cat)
     {
