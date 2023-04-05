@@ -8,12 +8,28 @@ use App\Http\Resources\V1\CatResource;
 use App\Models\Cat;
 use Illuminate\Http\Request;
 
+
 class CatController extends Controller
 {
     public function index()
     {
+        $cats = Cat::query()
+            ->where('status', '=', 'available')
+            ->orderBy('updated_at', 'desc')
+            ->paginate(10);
+        // return view('cat.index', [
+        //     'cats' => $cats
+        // ]);
         return CatResource::collection(Cat::all());
     }
+
+
+
+    public function view(Cat $cat)
+    {
+        return view('cat', ['cat' => $cat]);
+    }
+
 
     public function show(Cat $cat)
     {

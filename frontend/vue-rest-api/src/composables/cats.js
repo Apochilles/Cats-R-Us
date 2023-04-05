@@ -10,10 +10,30 @@ export default function useCats() {
     const errors = ref([]);
     const router = useRouter();
 
-    const getCats = async () => {
-        const response = await axios.get("cats");
-        cats.value = response.data.data;
+    // const getCats = async () => {
+    //     const response = await axios.get("cats");
+    //     cats.value = response.data.data;
+    // };
+
+    const getCats = async (
+        { commit, state },
+        { url = null, search = "", per_page, sort_field, sort_direction } = {}
+    ) => {
+        commit("setCats", [true]);
+        const params = {
+            per_page: state.orders.limit,
+        };
+        return axios.get("cats", {
+            params: {
+                ...params,
+                search,
+                per_page,
+                sort_field,
+                sort_direction,
+            },
+        });
     };
+
     const getCat = async (id) => {
         const response = await axios.get("cats/" + id);
         cat.value = response.data.data;

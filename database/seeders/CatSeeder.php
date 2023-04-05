@@ -19,3 +19,4 @@ class CatSeeder extends Seeder
         Cat::factory()->count(50)->create();
     }
 }
+
