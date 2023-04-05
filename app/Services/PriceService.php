@@ -4,23 +4,23 @@ namespace App\Services;
 
 use App\Models\Cat;
 
-class CatService
+class PriceService
 {
-    private $cats;
-    // private $categories;
+    private $fees;
+    // private $priceegories;
     // private $manufacturers;
 
-    public function getCats($cats)
+    public function getPrices($fees)
     {
-        $this->cats = $cats;
-        // $this->categories = $categories;
+        $this->fees = $fees;
+        // $this->priceegories = $priceegories;
         // $this->manufacturers = $manufacturers;
         $formattedPrices = [];
 
         foreach (Cat::PRICES as $index => $name) {
             $formattedPrices[] = [
                 'name' => $name,
-                'cats_count' => $this->getCatCount($index)
+                'cat_count' => $this->getCatCount($index)
             ];
         }
 
@@ -29,18 +29,18 @@ class CatService
 
     private function getCatCount($index)
     {
-        return Cat::withFilters($this->prices)
+        return Cat::withFilters($this->fees)
             ->when($index == 0, function ($query) {
-                $query->where('price', '<', '5000');
+                $query->where('fee', '<', '250');
             })
             ->when($index == 1, function ($query) {
-                $query->whereBetween('price', ['5000', '10000']);
+                $query->whereBetween('fee', ['250', '500']);
             })
             ->when($index == 2, function ($query) {
-                $query->whereBetween('price', ['10000', '50000']);
+                $query->whereBetween('fee', ['500', '750']);
             })
             ->when($index == 3, function ($query) {
-                $query->where('price', '>', '50000');
+                $query->where('fee', '>', '1000');
             })
             ->count();
     }

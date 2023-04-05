@@ -4,7 +4,7 @@ import useCats from "../../composables/cats";
 import { onMounted, computed, reactive } from "vue";
 import { ref } from "vue";
 
-const { cats, getCats } = useCats();
+const { cats, getCats, loadPrices } = useCats();
 
 onMounted(() => getCats());
 

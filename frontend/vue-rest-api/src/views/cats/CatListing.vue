@@ -1,20 +1,35 @@
 <script setup>
 import useCats from "../../composables/cats";
 
-import { onMounted, computed, reactive } from "vue";
+import { onMounted, computed, reactive, watch } from "vue";
 import { ref } from "vue";
 
-const { cats, getCats } = useCats();
+const { cats, getCats, loadPrices, prices } = useCats();
 
+onMounted(() => loadPrices());
 onMounted(() => getCats());
 
+const selected = ref([]);
 const keyword = ref("");
 const genders = ref([]);
 const sizes = ref([]);
 const fivStatus = ref([]);
 const colours = ref([]);
 const temperaments = ref([]);
+console.log(cats);
+console.log("output");
+console.log(prices);
 
+// pretend you have a getData getter in store
+watch(
+    prices,
+    (newValue, oldValue) => {
+        console.log(prices);
+    },
+    {
+        deep: true,
+    }
+);
 // const filteredCat = computed(() => {
 //     let filter = filterText.value;
 //     if (!filter.length) return cats.value;
@@ -30,25 +45,40 @@ const temperaments = ref([]);
 //     }
 // });
 
-const computedCats = computed(() => {
-    return cats.value.filter((cat) => {
-        return (
-            (keyword.value.length === 0 || cat.name.includes(keyword.value)) &&
-            (genders.value.length === 0 ||
-                genders.value.includes(cat.gender)) &&
-            (sizes.value.length === 0 || sizes.value.includes(cat.size)) &&
-            (fivStatus.value.length === 0 ||
-                fivStatus.value.includes(cat.fiv)) &&
-            (temperaments.value.length === 0 ||
-                temperaments.value.includes(cat.temperament)) &&
-            (colours.value.length === 0 || colours.value.includes(cat.colour))
-        );
-    });
-});
+// const computedCats = computed(() => {
+//     return cats.value.filter((cat) => {
+//         return (
+//             (keyword.value.length === 0 || cat.name.includes(keyword.value)) &&
+//             (genders.value.length === 0 ||
+//                 genders.value.includes(cat.gender)) &&
+//             (sizes.value.length === 0 || sizes.value.includes(cat.size)) &&
+//             (fivStatus.value.length === 0 ||
+//                 fivStatus.value.includes(cat.fiv)) &&
+//             (temperaments.value.length === 0 ||
+//                 temperaments.value.includes(cat.temperament)) &&
+//             (colours.value.length === 0 || colours.value.includes(cat.colour))
+//         );
+//     });
+// });
 </script>
 <template>
+    <h1 class="mt-4">Filters</h1>
+
+    <h3 class="mt-2">Price</h3>
+    <div class="form-check" v-for="(price, index) in prices">
+        <input
+            class="form-check-input"
+            type="checkbox"
+            :value="index"
+            :id="'price' + index"
+            v-model="prices"
+        />
+        <label class="form-check-label" :for="'price' + index">
+            {{ price.name }} ({{ price.cat_count }})
+        </label>
+    </div>
     <div class="container mx-auto mt-4">
-        <p><strong>Keyword:</strong><input type="text" v-model="keyword" /></p>
+        <!-- <p><strong>Keyword:</strong><input type="text" v-model="keyword" /></p>
 
         <p>
             <strong>Gender:</strong> Male:
@@ -85,15 +115,11 @@ const computedCats = computed(() => {
             <input type="checkbox" v-model="fivStatus" value="positive" />
             Negative:
             <input type="checkbox" v-model="fivStatus" value="negative" />
-        </p>
+        </p> -->
         <div class="main"></div>
         <div class="row">
             <!-- <div class="col-md-4" v-for="(fcats, i) in filteredCat" :key="i"> -->
-            <div
-                class="col-md-4"
-                v-for="(cat, index) in computedCats"
-                :key="index"
-            >
+            <div class="col-md-4" v-for="cat in cats">
                 <router-link
                     style="text-decoration: none; color: inherit"
                     :to="{
@@ -114,6 +140,7 @@ const computedCats = computed(() => {
                                 {{ cat.gender }}
                                 {{ cat.size }}
                                 {{ cat.fiv }}
+                                {{ cat.fee }}
                             </h6>
                             <p class="card-text">
                                 {{ cat.description }}

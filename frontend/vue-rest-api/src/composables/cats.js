@@ -5,14 +5,18 @@ import { useRouter } from "vue-router";
 axios.defaults.baseURL = "http://127.0.0.1:8000/api/v1/";
 
 export default function useCats() {
+    const prices = ref([]);
     const cats = ref([]);
     const cat = ref([]);
     const errors = ref([]);
     const router = useRouter();
 
     const getCats = async () => {
-        const response = await axios.get("cats");
+        const response = await axios.get("cats", {
+            params: prices,
+        });
         cats.value = response.data.data;
+        console.log(cats);
     };
     const getCat = async (id) => {
         const response = await axios.get("cats/" + id);
@@ -49,14 +53,24 @@ export default function useCats() {
         await getCats();
     };
 
+    const loadPrices = async () => {
+        const response = await axios.get("prices");
+
+        prices.value = response.data;
+        console.log("test");
+        console.log(prices.value);
+    };
+
     return {
         cat,
         cats,
+        prices,
         getCat,
         getCats,
         storeCat,
         updateCat,
         deleteCat,
         errors,
+        loadPrices,
     };
 }

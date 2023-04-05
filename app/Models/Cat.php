@@ -10,9 +10,9 @@ class Cat extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'slug', 'fiv', 'gender', 'description', 'temperament', 'fee', 'size', 'fur', 'desexed', 'wormed', 'fiv', 'image', 'status', 'age', 'breed', 'price'];
+    protected $fillable = ['name', 'slug', 'fiv', 'gender', 'description', 'temperament', 'fee', 'size', 'fur', 'desexed', 'wormed', 'fiv', 'image', 'status', 'age', 'breed',];
 
-    const Ages = [
+    const AGES = [
         'Kitten',
         'Adult',
         'Senior',
@@ -26,22 +26,24 @@ class Cat extends Model
     ];
 
 
-    public function scopeWithFilters($query, $prices, $cats)
+    public function scopeWithFilters($query, $fees)
     {
-        return $query->when(count($cats), function ($query) use ($cats) {
+        return $query->when(count($fees), function ($query) use ($fees) {
+            $query->whereIn('manufacturer_id', $fees);
         })
-            ->when(count($prices), function ($query) use ($prices) {
-                $query->where(function ($query) use ($prices) {
-                    $query->when(in_array(0, $prices), function ($query) {
-                        $query->orWhere('price', '<', '5000');
+
+            ->when(count($fees), function ($query) use ($fees) {
+                $query->where(function ($query) use ($fees) {
+                    $query->when(in_array(0, $fees), function ($query) {
+                        $query->orWhere('fee', '<', '5000');
                     })
-                        ->when(in_array(1, $prices), function ($query) {
-                            $query->orWhereBetween('price', ['5000', '10000']);
+                        ->when(in_array(1, $fees), function ($query) {
+                            $query->orWhereBetween('fee', ['5000', '10000']);
                         })
-                        ->when(in_array(2, $prices), function ($query) {
-                            $query->orWhereBetween('price', ['10000', '50000']);
+                        ->when(in_array(2, $fees), function ($query) {
+                            $query->orWhereBetween('fee', ['10000', '50000']);
                         })
-                        ->when(in_array(3, $prices), function ($query) {
+                        ->when(in_array(3, $fees), function ($query) {
                             $query->orWhere('price', '>', '50000');
                         });
                 });
