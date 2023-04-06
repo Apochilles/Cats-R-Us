@@ -14,6 +14,7 @@ const sizes = ref([]);
 const fivStatus = ref([]);
 const colours = ref([]);
 const temperaments = ref([]);
+const fur = ref([]);
 
 // const filteredCat = computed(() => {
 //     let filter = filterText.value;
@@ -41,92 +42,107 @@ const computedCats = computed(() => {
                 fivStatus.value.includes(cat.fiv)) &&
             (temperaments.value.length === 0 ||
                 temperaments.value.includes(cat.temperament)) &&
-            (colours.value.length === 0 || colours.value.includes(cat.colour))
+            (colours.value.length === 0 ||
+                colours.value.includes(cat.colour)) &&
+            (fur.value.length === 0 || fur.value.includes(cat.fur))
         );
     });
 });
 </script>
 <template>
-    <div class="container mx-auto mt-4">
-        <p><strong>Keyword:</strong><input type="text" v-model="keyword" /></p>
-
-        <p>
-            <strong>Gender:</strong> Male:
-            <input type="checkbox" v-model="genders" value="male" /> Female:
-            <input type="checkbox" v-model="genders" value="female" />
-        </p>
-
-        <p>
-            <strong>Sizes:</strong> Small:
-            <input type="checkbox" v-model="sizes" value="small" />
-            Medium:
-            <input type="checkbox" v-model="sizes" value="medium" />
-            Large:
-            <input type="checkbox" v-model="sizes" value="large" />
-        </p>
-        <p>
-            <strong>Temperament:</strong> Quiet:
-            <input type="checkbox" v-model="temperaments" value="quiet" />
-            Medium:
-            <input type="checkbox" v-model="temperaments" value="" />
-            Big:
-            <input type="checkbox" v-model="temperaments" value="big" />
-        </p>
-        <p>
-            <strong>Colour:</strong> Grey:
-            <input type="checkbox" v-model="colours" value="grey" />
-            Orange:
-            <input type="checkbox" v-model="colours" value="orange" />
-            Black:
-            <input type="checkbox" v-model="colours" value="black" />
-        </p>
-        <p>
-            <strong>Fiv:</strong> Positive:
-            <input type="checkbox" v-model="fivStatus" value="positive" />
-            Negative:
-            <input type="checkbox" v-model="fivStatus" value="negative" />
-        </p>
-        <div class="main"></div>
+    <div class="container" :class="{ loading: loading }">
         <div class="row">
-            <!-- <div class="col-md-4" v-for="(fcats, i) in filteredCat" :key="i"> -->
-            <div
-                class="col-md-4"
-                v-for="(cat, index) in computedCats"
-                :key="index"
-            >
-                <router-link
-                    style="text-decoration: none; color: inherit"
-                    :to="{
-                        name: 'CatView',
-                        params: {
-                            id: cat.id,
-                        },
-                    }"
-                >
-                    <div class="card" style="width: 18rem">
-                        <img :src="cat.image" />
+            <div class="col-lg-3 mb-4">
+                <h1 class="mt-4">Filters</h1>
 
-                        <div class="card-body">
-                            <h5 class="card-title">{{ cat.name }}</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">
-                                {{ cat.sex }} {{ cat.colour }}
-                                {{ cat.temperament }}
-                                {{ cat.gender }}
-                                {{ cat.size }}
-                                {{ cat.fiv }}
-                            </h6>
-                            <p class="card-text">
-                                {{ cat.description }}
-                            </p>
-                            <a href="#" class="btn mr-2"
-                                ><i class="fas fa-link"></i> Visit Site</a
-                            >
-                            <a href="#" class="btn"
-                                ><i class="fab fa-github"></i> Github</a
-                            >
+                <h3 class="mt-2">Gender</h3>
+                <div class="form-check">
+                    Male:
+                    <input type="checkbox" v-model="genders" value="male" />
+                    Female:
+                    <input type="checkbox" v-model="genders" value="female" />
+                </div>
+
+                <h3 class="mt-2">Size</h3>
+                <div class="form-check">
+                    Small:
+                    <input type="checkbox" v-model="sizes" value="small" />
+                    Medium:
+                    <input type="checkbox" v-model="sizes" value="medium" />
+                    Large:
+                    <input type="checkbox" v-model="sizes" value="large" />
+                </div>
+                <h3 class="mt-2">FIV</h3>
+                <div class="form-check">
+                    Positive:
+                    <input
+                        type="checkbox"
+                        v-model="fivStatus"
+                        value="positive"
+                    />
+                    Negative:
+                    <input
+                        type="checkbox"
+                        v-model="fivStatus"
+                        value="negative"
+                    />
+                </div>
+                <h3 class="mt-2">Fur</h3>
+                <div class="form-check">
+                    Short:
+                    <input type="checkbox" v-model="fur" value="short" />
+                    Long:
+                    <input type="checkbox" v-model="fur" value="long" />
+                </div>
+                <h3 class="mt-2">Temperament</h3>
+                <div class="form-check">
+                    Shy:
+                    <input type="checkbox" v-model="temperaments" value="shy" />
+                    Average:
+                    <input
+                        type="checkbox"
+                        v-model="temperaments"
+                        value="average"
+                    />
+                    Confident:
+                    <input
+                        type="checkbox"
+                        v-model="temperaments"
+                        value="confident"
+                    />
+                </div>
+            </div>
+            <div class="col-lg-9">
+                <div class="row mt-4">
+                    <div
+                        class="col-lg-4 col-md-6 mb-4"
+                        v-for="(cat, index) in computedCats"
+                        :key="index"
+                    >
+                        <div class="card h-100">
+                            <a href="#">
+                                <img
+                                    class="card-img-top"
+                                    src="http://placehold.it/700x400"
+                                    alt=""
+                                />
+                            </a>
+                            <div class="card-body">
+                                <h5 class="card-title">{{ cat.name }}</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">
+                                    {{ cat.sex }} {{ cat.colour }}
+                                    {{ cat.temperament }}
+                                    {{ cat.gender }}
+                                    {{ cat.size }}
+                                    {{ cat.fiv }}
+                                </h6>
+                                <p class="card-text">
+                                    {{ cat.description }}
+                                </p>
+                            </div>
                         </div>
                     </div>
-                </router-link>
+                </div>
             </div>
         </div>
     </div>

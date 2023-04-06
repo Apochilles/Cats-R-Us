@@ -13,6 +13,7 @@ export default function useCats() {
     const getCats = async () => {
         const response = await axios.get("cats");
         cats.value = response.data.data;
+        console.log(cats.value);
     };
     const getCat = async (id) => {
         const response = await axios.get("cats/" + id);

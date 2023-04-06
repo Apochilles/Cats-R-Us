@@ -12,7 +12,10 @@ class CatController extends Controller
 {
     public function index()
     {
-        return CatResource::collection(Cat::all());
+        $cats = Cat::paginate(9);
+
+
+        return CatResource::collection($cats);
     }
 
     public function show(Cat $cat)
