@@ -7,16 +7,25 @@ use App\Http\Requests\StoreCatRequest;
 use App\Http\Resources\V1\CatResource;
 use App\Models\Cat;
 use Illuminate\Http\Request;
+use Spatie\QueryBuilder\QueryBuilder;
+
 
 class CatController extends Controller
 {
+
     public function index()
     {
-        $cats = Cat::paginate(9);
+        $cats = QueryBuilder::for(Cat::class)
+            ->allowedFilters(['name', 'fiv', 'gender', 'temperament', 'fee', 'size', 'fur', 'desexed', 'wormed', 'image', 'status', 'age', 'breed'])
+            // ->paginate($request->get('perPage', 15));
+            ->paginate()
+            ->appends(request()->query());
+
 
 
         return CatResource::collection($cats);
     }
+
 
     public function show(Cat $cat)
     {

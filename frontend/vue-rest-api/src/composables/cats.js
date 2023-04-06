@@ -1,14 +1,23 @@
 import { ref } from "vue";
 import axios from "axios";
 import { useRouter } from "vue-router";
+// import pagination from "laravel-vue-pagination";
 
 axios.defaults.baseURL = "http://127.0.0.1:8000/api/v1/";
 
 export default function useCats() {
     const cats = ref([]);
+    const catPage = ref([]);
     const cat = ref([]);
     const errors = ref([]);
     const router = useRouter();
+
+    const list = async (page) => {
+        await axios.get(`cats/?page=` + page).then((response) => {
+            catPage.value = response.data;
+            console.log(catPage.value);
+        });
+    };
 
     const getCats = async () => {
         const response = await axios.get("cats");
@@ -53,11 +62,13 @@ export default function useCats() {
     return {
         cat,
         cats,
+        catPage,
         getCat,
         getCats,
         storeCat,
         updateCat,
         deleteCat,
         errors,
+        list,
     };
 }
