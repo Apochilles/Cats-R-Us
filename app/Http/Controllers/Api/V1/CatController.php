@@ -8,6 +8,8 @@ use App\Http\Resources\V1\CatResource;
 use App\Models\Cat;
 use Illuminate\Http\Request;
 use Spatie\QueryBuilder\QueryBuilder;
+use Spatie\QueryBuilder\AllowedFilter;
+
 
 
 class CatController extends Controller
@@ -16,7 +18,7 @@ class CatController extends Controller
     public function index()
     {
         $cats = QueryBuilder::for(Cat::class)
-            ->allowedFilters(['name', 'fiv', 'gender', 'temperament', 'fee', 'size', 'fur', 'desexed', 'wormed', 'image', 'status', 'age', 'breed'])
+            ->allowedFilters([AllowedFilter::exact('gender'), 'name', 'fiv', 'temperament', 'fee', 'size', 'fur', 'desexed', 'wormed', 'image', 'status', 'age', 'breed'])
             // ->paginate($request->get('perPage', 15));
             ->paginate()
             ->appends(request()->query());
