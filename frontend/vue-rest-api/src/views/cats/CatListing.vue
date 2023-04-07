@@ -10,6 +10,14 @@ const { cats, getFilteredCats, filteredCats, catPage } = useCats();
 console.log("hello");
 console.log(catPage);
 
+const filters = ref({
+    gender: [],
+    size: [],
+    fiv: [],
+    fur: [],
+    temperament: [],
+});
+
 const queries = ref({
     "filter[gender]": [],
     "filter[size]": [],
@@ -21,6 +29,25 @@ const queries = ref({
     perPage: 15,
     ...useRoute().query,
 });
+
+watch(
+    filters,
+    () => {
+        queries.value["filter[gender]"] = filters.value["gender"];
+        queries.value["filter[size]"] = filters.value["size"];
+        queries.value["filter[fiv]"] = filters.value["fiv"];
+        queries.value["filter[fur]"] = filters.value["fur"];
+        queries.value["filter[temperament]"] = filters.value["temperament"];
+
+        /// Filter changes here
+        // Reset page if filter changes
+        queries.value["page"] = 1;
+    },
+    {
+        deep: true,
+        immediate: true,
+    }
+);
 
 watch(
     queries,
@@ -51,13 +78,13 @@ watch(
                     Male:
                     <input
                         type="checkbox"
-                        v-model="queries['filter[gender]']"
+                        v-model="filters['gender']"
                         value="male"
                     />
                     Female:
                     <input
                         type="checkbox"
-                        v-model="queries['filter[gender]']"
+                        v-model="filters['gender']"
                         value="female"
                     />
                 </div>
@@ -67,19 +94,19 @@ watch(
                     Small:
                     <input
                         type="checkbox"
-                        v-model="queries['filter[size]']"
+                        v-model="filters['size']"
                         value="small"
                     />
                     Medium:
                     <input
                         type="checkbox"
-                        v-model="queries['filter[size]']"
+                        v-model="filters['size']"
                         value="medium"
                     />
                     Large:
                     <input
                         type="checkbox"
-                        v-model="queries['filter[size]']"
+                        v-model="filters['size']"
                         value="large"
                     />
                 </div>
@@ -88,13 +115,13 @@ watch(
                     Positive:
                     <input
                         type="checkbox"
-                        v-model="queries['filter[fiv]']"
+                        v-model="filters['fiv']"
                         value="positive"
                     />
                     Negative:
                     <input
                         type="checkbox"
-                        v-model="queries['filter[fiv]']"
+                        v-model="filters['fiv']"
                         value="negative"
                     />
                 </div>
@@ -103,13 +130,13 @@ watch(
                     Short:
                     <input
                         type="checkbox"
-                        v-model="queries['filter[fur]']"
+                        v-model="filters['fur']"
                         value="short"
                     />
                     Long:
                     <input
                         type="checkbox"
-                        v-model="queries['filter[fur]']"
+                        v-model="filters['fur']"
                         value="long"
                     />
                 </div>
@@ -118,19 +145,19 @@ watch(
                     Shy:
                     <input
                         type="checkbox"
-                        v-model="queries['filter[temperament]']"
+                        v-model="filters['temperament']"
                         value="shy"
                     />
                     Average:
                     <input
                         type="checkbox"
-                        v-model="queries['filter[temperament]']"
+                        v-model="filters['temperament']"
                         value="average"
                     />
                     Confident:
                     <input
                         type="checkbox"
-                        v-model="queries['filter[temperament]']"
+                        v-model="filters['temperament']"
                         value="confident"
                     />
                 </div>
