@@ -18,6 +18,7 @@ class CatController extends Controller
     public function index()
     {
         $cats = QueryBuilder::for(Cat::class)
+            ->whereNull('adopted_by')
             ->allowedFilters([AllowedFilter::exact('gender'), 'name', 'fiv', 'temperament', 'fee', 'size', 'fur', 'desexed', 'wormed', 'image', 'status', 'age', 'breed'])
             // ->paginate($request->get('perPage', 15));
             ->paginate()

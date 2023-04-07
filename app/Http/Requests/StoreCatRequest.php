@@ -38,6 +38,7 @@ class StoreCatRequest extends FormRequest
             'desexed' => ['required', 'in:yes,no'],
             'wormed' => ['required', 'in:yes,no'],
             'age' => ['required', 'in:male,female'],
+            'adopted_by' => ['required', 'in:DSH,non-DSH'],
             'breed' => ['required', 'in:DSH,non-DSH'],
             'image' => ['required'],
 

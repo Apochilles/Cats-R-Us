@@ -9,10 +9,11 @@ use Auth0\SDK\Configuration\SdkConfiguration;
  * Please review available configuration options here:
  * https://github.com/auth0/auth0-PHP#configuration-options.
  */
+
 return [
     // Should be assigned either 'api', 'management', or 'webapp' to indicate your application's use case for the SDK.
     // Determines what configuration options will be required.
-    'strategy'      => env('AUTH0_STRATEGY', SdkConfiguration::STRATEGY_REGULAR),
+    'strategy'      => env('AUTH0_STRATEGY', SdkConfiguration::STRATEGY_API),
 
     // Auth0 domain for your tenant, found in your Auth0 Application settings.
     'domain'        => env('AUTH0_DOMAIN'),

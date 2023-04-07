@@ -14,6 +14,11 @@ const router = createRouter({
             component: () => import("../views/cats/CatListing.vue"),
         },
         {
+            path: "/mycats",
+            name: "MyCat",
+            component: () => import("../views/cats/MyCat.vue"),
+        },
+        {
             path: "/cat/:id",
             name: "CatView",
             component: () => import("../views/cats/CatView.vue"),

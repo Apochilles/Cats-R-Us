@@ -32,6 +32,9 @@ class CatResource extends JsonResource
             'age' => $this->age,
             'breed' => $this->breed,
             'image' => $this->image,
+            'adopted_by' => $this->adopted_by,
+
+
 
 
 

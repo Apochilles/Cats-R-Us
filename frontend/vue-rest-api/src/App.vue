@@ -1,5 +1,17 @@
 <script setup>
 import { RouterLink, RouterView } from "vue-router";
+import { useAuth0 } from "@auth0/auth0-vue";
+
+const { loginWithRedirect, user, isAuthenticated } = useAuth0();
+
+function login() {
+    loginWithRedirect();
+}
+console.log({
+    loginWithRedirect,
+    user,
+    isAuthenticated,
+});
 </script>
 
 <template>
@@ -66,16 +78,12 @@ import { RouterLink, RouterView } from "vue-router";
                         >
                     </li>
                 </ul>
-
-                <form class="d-flex">
-                    <button class="btn btn-outline-dark" type="submit">
-                        <i class="bi-cart-fill me-1"></i>
-                        Cart
-                        <span class="badge bg-dark text-white ms-1 rounded-pill"
-                            >0</span
-                        >
-                    </button>
-                </form>
+                <div v-if="!isAuthenticated">
+                    <button @click="login">Log in</button>
+                </div>
+                <pre v-if="isAuthenticated">
+        <code>{{ user.name }}</code>
+      </pre>
             </div>
         </div>
     </nav>

@@ -1,7 +1,7 @@
 import { ref } from "vue";
 import axios from "axios";
 import { useRouter } from "vue-router";
-// import pagination from "laravel-vue-pagination";
+import { useAuth0 } from "@auth0/auth0-vue";
 
 axios.defaults.baseURL = "http://127.0.0.1:8000/api/v1/";
 
@@ -12,6 +12,7 @@ export default function useCats() {
     const errors = ref([]);
     const filteredCats = ref();
     const router = useRouter();
+    const { getAccessTokenSilently } = useAuth0();
 
     const getFilteredCats = async (queries) => {
         const response = await axios.get(
@@ -24,9 +25,14 @@ export default function useCats() {
         console.log(response);
     };
 
-    const getCats = async () => {
-        const response = await axios.get("cats");
-        cats.value = response.data.data;
+    const getMyCats = async () => {
+        const token = await getAccessTokenSilently();
+        const response = await axios.get("mycats", {
+            headers: {
+                Authorization: "Bearer " + token,
+            },
+        });
+        cats.value = response.data;
         console.log(cats.value);
     };
     const getCat = async (id) => {
@@ -69,8 +75,8 @@ export default function useCats() {
         cats,
         catPage,
         getCat,
-        getCats,
         getFilteredCats,
+        getMyCats,
         filteredCats,
         storeCat,
         updateCat,

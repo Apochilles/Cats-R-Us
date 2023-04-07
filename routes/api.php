@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\V1\CatController;
+use App\Http\Controllers\Api\V1\MyCatController;
 
 
 /*
@@ -19,4 +20,5 @@ use App\Http\Controllers\Api\V1\CatController;
 
 Route::group(['prefix' => 'v1'], function () {
     Route::apiResource('cats', CatController::class);
+    Route::apiResource('mycats', MyCatController::class)->middleware('auth0.authorize');;
 });
