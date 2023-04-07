@@ -16,6 +16,9 @@ class CatSeeder extends Seeder
     public function run()
     {
 
-        Cat::factory()->count(50)->create();
+
+        Cat::factory()->count(50)
+            ->sequence(fn ($sequence) => ['image' => strval($sequence->index + 1) . ".jpg"])
+            ->create();
     }
 }

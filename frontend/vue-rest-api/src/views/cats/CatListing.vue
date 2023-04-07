@@ -5,21 +5,11 @@ import { onMounted, computed, reactive, watch } from "vue";
 import { ref } from "vue";
 import { Bootstrap5Pagination } from "laravel-vue-pagination";
 
-const { cats, getCats, list, catPage } = useCats();
+const { cats, getFilteredCats, filteredCats, catPage } = useCats();
 
-// onMounted(() => getCats());
-// onMounted(() => list());
 console.log("hello");
 console.log(catPage);
 
-const keyword = ref("");
-const genders = ref([]);
-const sizes = ref([]);
-const fivStatus = ref([]);
-const colours = ref([]);
-const temperaments = ref([]);
-const fur = ref([]);
-const data = ref();
 const queries = ref({
     "filter[gender]": [],
     "filter[size]": [],
@@ -34,24 +24,13 @@ const queries = ref({
 
 watch(
     queries,
-    async () => {
+    () => {
+        getFilteredCats(queries);
         useRouter().push({ query: queries.value });
-
-        const res = await fetch(
-            `http://127.0.0.1:8000/api/v1/cats?${new URLSearchParams(
-                queries.value
-            ).toString()}`
-        );
-        const response = await res.json();
-        data.value = response;
-        console.log("object return");
-        console.log(cats);
-        // useRouter().push({ query: queries.value });
     },
+
     {
-        // must pass deep option to watch for changes on object properties
         deep: true,
-        // can also pass immediate to handle that first request AND when queries change
         immediate: true,
     }
 );
@@ -86,48 +65,72 @@ watch(
                 <h3 class="mt-2">Size</h3>
                 <div class="form-check">
                     Small:
-                    <input type="checkbox" v-model="sizes" value="small" />
+                    <input
+                        type="checkbox"
+                        v-model="queries['filter[size]']"
+                        value="small"
+                    />
                     Medium:
-                    <input type="checkbox" v-model="sizes" value="medium" />
+                    <input
+                        type="checkbox"
+                        v-model="queries['filter[size]']"
+                        value="medium"
+                    />
                     Large:
-                    <input type="checkbox" v-model="sizes" value="large" />
+                    <input
+                        type="checkbox"
+                        v-model="queries['filter[size]']"
+                        value="large"
+                    />
                 </div>
                 <h3 class="mt-2">FIV</h3>
                 <div class="form-check">
                     Positive:
                     <input
                         type="checkbox"
-                        v-model="fivStatus"
+                        v-model="queries['filter[fiv]']"
                         value="positive"
                     />
                     Negative:
                     <input
                         type="checkbox"
-                        v-model="fivStatus"
+                        v-model="queries['filter[fiv]']"
                         value="negative"
                     />
                 </div>
                 <h3 class="mt-2">Fur</h3>
                 <div class="form-check">
                     Short:
-                    <input type="checkbox" v-model="fur" value="short" />
+                    <input
+                        type="checkbox"
+                        v-model="queries['filter[fur]']"
+                        value="short"
+                    />
                     Long:
-                    <input type="checkbox" v-model="fur" value="long" />
+                    <input
+                        type="checkbox"
+                        v-model="queries['filter[fur]']"
+                        value="long"
+                    />
                 </div>
                 <h3 class="mt-2">Temperament</h3>
                 <div class="form-check">
                     Shy:
-                    <input type="checkbox" v-model="temperaments" value="shy" />
+                    <input
+                        type="checkbox"
+                        v-model="queries['filter[temperament]']"
+                        value="shy"
+                    />
                     Average:
                     <input
                         type="checkbox"
-                        v-model="temperaments"
+                        v-model="queries['filter[temperament]']"
                         value="average"
                     />
                     Confident:
                     <input
                         type="checkbox"
-                        v-model="temperaments"
+                        v-model="queries['filter[temperament]']"
                         value="confident"
                     />
                 </div>
@@ -136,38 +139,48 @@ watch(
                 <div class="row mt-4">
                     <div
                         class="col-lg-4 col-md-6 mb-4"
-                        v-for="cat in data.data"
+                        v-for="cat in filteredCats.data"
                         :key="cat.id"
                     >
-                        <div class="card h-100">
-                            <a href="#">
-                                <img
-                                    class="card-img-top"
-                                    src="http://placehold.it/700x400"
-                                    alt=""
-                                />
-                            </a>
-                            <div class="card-body">
-                                <h5 class="card-title">
-                                    {{ cat.name }}
-                                </h5>
-                                <h6 class="card-subtitle mb-2 text-muted">
-                                    {{ cat.sex }} {{ cat.colour }}
-                                    {{ cat.temperament }}
-                                    {{ cat.gender }}
-                                    {{ cat.size }}
-                                    {{ cat.fiv }}
-                                </h6>
-                                <p class="card-text">
-                                    <!-- {{ cat.description }} -->
-                                </p>
+                        <router-link
+                            style="text-decoration: none; color: inherit"
+                            :to="{
+                                name: 'CatView',
+                                params: {
+                                    id: cat.id,
+                                },
+                            }"
+                        >
+                            <div class="card h-100">
+                                <a href="#">
+                                    <img
+                                        class="card-img-top"
+                                        :src="'public/cats/' + cat.image"
+                                        alt=""
+                                    />
+                                </a>
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        {{ cat.name }}
+                                    </h5>
+                                    <h6 class="card-subtitle mb-2 text-muted">
+                                        {{ cat.sex }} {{ cat.colour }}
+                                        {{ cat.temperament }}
+                                        {{ cat.gender }}
+                                        {{ cat.size }}
+                                        {{ cat.fiv }}
+                                    </h6>
+                                    <p class="card-text">
+                                        <!-- {{ cat.description }} -->
+                                    </p>
+                                </div>
                             </div>
-                        </div>
+                        </router-link>
                     </div>
                 </div>
             </div>
             <Bootstrap5Pagination
-                :data="data"
+                :data="filteredCats"
                 @pagination-change-page="queries.page = $event"
             />
         </div>

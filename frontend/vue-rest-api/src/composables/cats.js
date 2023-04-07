@@ -10,13 +10,18 @@ export default function useCats() {
     const catPage = ref([]);
     const cat = ref([]);
     const errors = ref([]);
+    const filteredCats = ref();
     const router = useRouter();
 
-    const list = async (page) => {
-        await axios.get(`cats/?page=` + page).then((response) => {
-            catPage.value = response.data;
-            console.log(catPage.value);
-        });
+    const getFilteredCats = async (queries) => {
+        const response = await axios.get(
+            `http://127.0.0.1:8000/api/v1/cats?${new URLSearchParams(
+                queries.value
+            ).toString()}`
+        );
+        filteredCats.value = response.data;
+        console.log("object return");
+        console.log(response);
     };
 
     const getCats = async () => {
@@ -65,10 +70,11 @@ export default function useCats() {
         catPage,
         getCat,
         getCats,
+        getFilteredCats,
+        filteredCats,
         storeCat,
         updateCat,
         deleteCat,
         errors,
-        list,
     };
 }

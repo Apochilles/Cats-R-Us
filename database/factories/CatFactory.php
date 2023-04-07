@@ -29,6 +29,7 @@ class CatFactory extends Factory
         $yesNo = ['yes', 'no'];
         $status = ['available', 'adopted'];
         $name = $this->faker->firstName();
+        $number = 1;
         return [
 
 
@@ -37,7 +38,7 @@ class CatFactory extends Factory
             'fee' => random_int(100, 1000),
             'fiv' => $fivValues[rand(0, 1)],
             'gender' => $genderValues[rand(0, 1)],
-            'description' => $this->faker->paragraph($nbSentences = 3, $variableNbSentences = true),
+            'description' => $this->faker->paragraph($nbSentences = 1, $variableNbSentences = true),
             'temperament' => $temperamentValues[rand(0, 2)],
             'size' => $sizeValues[rand(0, 2)],
             'fur' => $furValues[rand(0, 1)],
@@ -47,7 +48,6 @@ class CatFactory extends Factory
             'status' => $status[rand(0, 1)],
             'breed' => $breedValues[rand(0, 1)],
             'age' => '9999-12-31',
-            'image' => Str::random(10),
 
 
         ];
