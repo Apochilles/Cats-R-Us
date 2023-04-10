@@ -1,6 +1,8 @@
 # CATS R US
 ## Full Stack Laravel and Vue Application imitating a pet search platform.
+---
 
+![alt text](readme_assets/Readme_image.png)
 
 ---
 
@@ -18,9 +20,7 @@
 - Advanced filtering 
 ---
 
-![alt text](readme_assets/Readme_image.png)
 
----
 
 Images and inspiration from https://www.petrescue.com.au/
 
