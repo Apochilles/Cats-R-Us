@@ -59,39 +59,11 @@ import { ref } from "vue";
                                 groups, shelters, and pounds across the nation!
                             </p>
                         </div>
-                        <p class="lead fw-normal text-white-50 mb-0">
-                            With this shop hompeage template
-                        </p>
                     </div>
                 </div>
             </div>
             <!-- Section-->
-            <section class="py-5">
-                <div class="container px-4 px-lg-5 mt-5">
-                    <div
-                        class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center"
-                    >
-                        <div class="col mb-5">
-                            <div class="card h-100">
-                                <p>Find a kitten</p>
-                            </div>
-                        </div>
-                        <div class="col mb-5">
-                            <div class="card h-100">
-                                <p>Find a adult</p>
-                            </div>
-                        </div>
-                        <div class="col mb-5">
-                            <div class="card h-100">
-                                <p>Find a Senior</p>
-                            </div>
-                        </div>
-                        <div
-                            class="card-footer p-4 pt-0 border-top-0 bg-transparent"
-                        ></div>
-                    </div>
-                </div>
-            </section>
+            <section class="py-5"></section>
             <!-- Footer-->
             <footer class="py-5 bg-dark">
                 <div class="container">

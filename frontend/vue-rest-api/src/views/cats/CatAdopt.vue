@@ -1,26 +1,27 @@
 <script setup>
-import { reactive, onMounted, ref } from "vue";
+import { onMounted, reactive } from "vue";
 import useCats from "../../composables/cats";
-import { useRoute } from "vue-router";
 
-const { storeCat, errors, cat, getCat } = useCats();
+const { cat, getCat, updateCat, errors } = useCats();
 
 const props = defineProps({
     id: {
+        required: true,
         type: String,
     },
 });
 
 onMounted(() => getCat(props.id));
+console.log(cat);
 </script>
 <template>
     <div>
-        <form @submit.prevent="adoptCat(cat)">
+        <form @submit.prevent="updateCat($route.params.id)">
             <div class="form-group">
                 <label for="name">Name</label>
                 <input
                     type="text"
-                    v-model="form.name"
+                    v-model="cat.name"
                     id="name"
                     class="form-control"
                     placeholder="Enter name"
@@ -33,7 +34,7 @@ onMounted(() => getCat(props.id));
                 <label for="slug">Slug</label>
                 <input
                     type="text"
-                    v-model="form.slug"
+                    v-model="cat.slug"
                     id="slug"
                     class="form-control"
                     placeholder="Enter slug"
@@ -44,7 +45,7 @@ onMounted(() => getCat(props.id));
             </div>
             <div class="form-group">
                 <label for="fiv">FIV status</label>
-                <select v-model="form.fiv" class="form-control" id="fiv">
+                <select v-model="cat.fiv" class="form-control" id="fiv">
                     <option disabled value="">Please select one</option>
                     <option>positive</option>
                     <option>negative</option>
@@ -55,7 +56,7 @@ onMounted(() => getCat(props.id));
             </div>
             <div class="form-group">
                 <label for="gender">Gender</label>
-                <select v-model="form.gender" class="form-control" id="gender">
+                <select v-model="cat.gender" class="form-control" id="gender">
                     <option>male</option>
                     <option>female</option>
                 </select>
@@ -68,7 +69,7 @@ onMounted(() => getCat(props.id));
                 <label for="description">Description</label>
                 <textarea
                     type="text"
-                    v-model="form.description"
+                    v-model="cat.description"
                     class="form-control"
                     id="description"
                     rows="3"
@@ -78,26 +79,15 @@ onMounted(() => getCat(props.id));
                 </div>
             </div>
             <div class="form-group">
-                <label for="colour">Colour</label>
-                <select v-model="form.colour" class="form-control" id="colour">
-                    <option>grey</option>
-                    <option>orange</option>
-                    <option>black</option>
-                </select>
-                <div v-if="errors.name">
-                    <span> {{ errors.colour[0] }} </span>
-                </div>
-            </div>
-            <div class="form-group">
                 <label for="temperament">temperament</label>
                 <select
-                    v-model="form.temperament"
+                    v-model="cat.temperament"
                     class="form-control"
                     id="temperament"
                 >
-                    <option>quiet</option>
-                    <option>medium</option>
-                    <option>big</option>
+                    <option>shy</option>
+                    <option>average</option>
+                    <option>confident</option>
                 </select>
                 <div v-if="errors.name">
                     <span> {{ errors.temperament[0] }} </span>
@@ -105,7 +95,7 @@ onMounted(() => getCat(props.id));
             </div>
             <div class="form-group">
                 <label for="size">size</label>
-                <select v-model="form.size" class="form-control" id="size">
+                <select v-model="cat.size" class="form-control" id="size">
                     <option>small</option>
                     <option>medium</option>
                     <option>large</option>
@@ -114,19 +104,7 @@ onMounted(() => getCat(props.id));
                     <span> {{ errors.size[0] }} </span>
                 </div>
             </div>
-            <div class="form-group">
-                <label for="image">Image</label>
-                <input
-                    type="text"
-                    v-model="form.image"
-                    class="form-control"
-                    id="image"
-                    aria-describedby="imageHelp"
-                />
-                <div v-if="errors.name">
-                    <span> {{ errors.image[0] }} </span>
-                </div>
-            </div>
+
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>

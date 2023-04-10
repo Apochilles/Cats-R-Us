@@ -51,6 +51,17 @@ export default function useCats() {
         }
     };
 
+    const adoptCat = async (id) => {
+        try {
+            await axios.put("cats/" + id, cat.value);
+            await router.push({ name: "CatIndex" });
+        } catch (error) {
+            if (error.response.status === 42) {
+                errors.value = error.response.data.errors;
+            }
+        }
+    };
+
     const updateCat = async (id) => {
         try {
             await axios.put("cats/" + id, cat.value);
