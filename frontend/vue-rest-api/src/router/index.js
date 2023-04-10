@@ -25,6 +25,12 @@ const router = createRouter({
             props: true,
         },
         {
+            path: "/cat/:id/adopt",
+            name: "CatAdopt",
+            component: () => import("../views/cats/CatAdopt.vue"),
+            props: true,
+        },
+        {
             path: "/cats/create",
             name: "CatCreate",
             component: () => import("../views/cats/CatCreate.vue"),

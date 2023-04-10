@@ -42,6 +42,18 @@ console.log(cat);
                         >
                     </div>
                     <button>
+                        <RouterLink
+                            class="nav-link active"
+                            :to="{
+                                name: 'CatAdopt',
+                                params: {
+                                    id: id,
+                                },
+                            }"
+                            >Adopt</RouterLink
+                        >
+                    </button>
+                    <button>
                         <RouterLink class="nav-link active" to="/listings"
                             >Back to listings</RouterLink
                         >

@@ -4,9 +4,7 @@ import { useRouter, useRoute } from "vue-router";
 import { onMounted, computed, reactive, watch } from "vue";
 import { ref } from "vue";
 import { Bootstrap5Pagination } from "laravel-vue-pagination";
-
 const { getMyCats, cats } = useCats();
-
 onMounted(() => getMyCats());
 </script>
 <template>

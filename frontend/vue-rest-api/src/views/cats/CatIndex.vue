@@ -4,49 +4,13 @@ import useCats from "../../composables/cats";
 import { onMounted, computed, reactive } from "vue";
 import { ref } from "vue";
 
-const { cats, getCats } = useCats();
+// const { cats, getCats } = useCats();
 
-const keyword = ref("");
-const genders = ref([]);
-const sizes = ref([]);
-const fivStatus = ref([]);
-const colours = ref([]);
-const temperaments = ref([]);
-
-// const filteredCat = computed(() => {
-//     let filter = filterText.value;
-//     if (!filter.length) return cats.value;
-
-//     if (filter !== "") {
-//         return cats.value.filter(
-//             (fcats) =>
-//                 fcats.name.toLowerCase().includes(filter.toLowerCase()) ||
-//                 fcats.gender.toLowerCase().includes(filter.toLowerCase()) ||
-//                 fcats.fiv.toLowerCase().includes(filter.toLowerCase()) ||
-//                 fcats.colour.toLowerCase().includes(filter.toLowerCase())
-//         );
-//     }
+// onMounted(() => getCats());
+// console.log(cats);
+// const catCount = computed(() => {
+//     return cats.value.length;
 // });
-
-const catCategories = computed(() => {
-    return cats.value.filter((cat) => {
-        return (
-            (keyword.value.length === 0 || cat.name.includes(keyword.value)) &&
-            (genders.value.length === 0 ||
-                genders.value.includes(cat.gender)) &&
-            (sizes.value.length === 0 || sizes.value.includes(cat.size)) &&
-            (fivStatus.value.length === 0 ||
-                fivStatus.value.includes(cat.fiv)) &&
-            (temperaments.value.length === 0 ||
-                temperaments.value.includes(cat.temperament)) &&
-            (colours.value.length === 0 || colours.value.includes(cat.colour))
-        );
-    });
-});
-
-const catCount = computed(() => {
-    return cats.value.length;
-});
 </script>
 <template>
     <!DOCTYPE html>

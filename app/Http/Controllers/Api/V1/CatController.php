@@ -14,7 +14,6 @@ use Spatie\QueryBuilder\AllowedFilter;
 
 class CatController extends Controller
 {
-
     public function index()
     {
         $cats = QueryBuilder::for(Cat::class)
@@ -29,6 +28,7 @@ class CatController extends Controller
 
         return CatResource::collection($cats);
     }
+
 
 
     public function show(Cat $cat)

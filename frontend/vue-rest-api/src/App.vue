@@ -60,14 +60,9 @@ console.log({
                                 >
                             </li>
                             <li><hr class="dropdown-divider" /></li>
-                            <li>
-                                <a class="dropdown-item" href="#!"
-                                    >Popular Items</a
-                                >
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="#!"
-                                    >New Arrivals</a
+                            <li class="dropdown-item">
+                                <RouterLink class="nav-link active" to="/mycats"
+                                    >My Cats</RouterLink
                                 >
                             </li>
                         </ul>

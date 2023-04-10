@@ -28,7 +28,7 @@ return new class extends Migration
             $table->enum('fiv', ['positive', 'negative']);
             $table->enum('gender', ['male', 'female']);
             $table->enum('status', ['available', 'adopted']);
-            $table->string('adopted_by')->nullable();
+            $table->text('adopted_by')->nullable();
             $table->date('age');
             $table->string('image');
             $table->timestamps();
