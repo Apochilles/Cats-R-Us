@@ -19,6 +19,7 @@ class CatController extends Controller
     {
         $cats = QueryBuilder::for(Cat::class)
             ->whereNull('adopted_by')
+            ->where('status', '=', 'available')
             ->allowedFilters([AllowedFilter::exact('gender'), 'name', 'fiv', 'temperament', 'fee', 'size', 'fur', 'desexed', 'wormed', 'image', 'status', 'age', 'breed'])
             // ->paginate($request->get('perPage', 15));
             ->paginate()

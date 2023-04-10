@@ -7,9 +7,7 @@ import { Bootstrap5Pagination } from "laravel-vue-pagination";
 
 const { cats, getFilteredCats, filteredCats, catPage } = useCats();
 
-console.log("hello");
-console.log(catPage);
-
+//
 const filters = ref({
     gender: [],
     size: [],
@@ -61,14 +59,10 @@ watch(
         immediate: true,
     }
 );
+console.log(filteredCats);
 </script>
 <template>
-    <div class="container" :class="{ loading: loading }">
-        <input
-            type="search"
-            placeholder="Search Posts by Title"
-            v-model.lazy="queries['filter[name]']"
-        />
+    <div class="container">
         <div class="row">
             <div class="col-lg-3 mb-4">
                 <h1 class="mt-4">Filters</h1>
@@ -167,6 +161,7 @@ watch(
                     <div
                         class="col-lg-4 col-md-6 mb-4"
                         v-for="cat in filteredCats.data"
+                        v-if="filteredCats != null"
                         :key="cat.id"
                     >
                         <router-link
@@ -191,14 +186,10 @@ watch(
                                         {{ cat.name }}
                                     </h5>
                                     <h6 class="card-subtitle mb-2 text-muted">
-                                        {{ cat.sex }} {{ cat.colour }}
-                                        {{ cat.temperament }}
-                                        {{ cat.gender }}
-                                        {{ cat.size }}
-                                        {{ cat.fiv }}
+                                        {{ cat.breed }} Cat
                                     </h6>
                                     <p class="card-text">
-                                        <!-- {{ cat.description }} -->
+                                        {{ cat.description }}
                                     </p>
                                 </div>
                             </div>
@@ -206,10 +197,12 @@ watch(
                     </div>
                 </div>
             </div>
-            <Bootstrap5Pagination
-                :data="filteredCats"
-                @pagination-change-page="queries.page = $event"
-            />
+            <div v-if="filteredCats != null">
+                <Bootstrap5Pagination
+                    :data="filteredCats"
+                    @pagination-change-page="queries.page = $event"
+                />
+            </div>
         </div>
     </div>
 </template>

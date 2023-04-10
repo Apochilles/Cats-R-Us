@@ -22,7 +22,7 @@ class CatFactory extends Factory
     {
         $fivValues = ['positive', 'negative'];
         $genderValues = ['male', 'female'];
-        $breedValues = ['DSH', 'non-DSH'];
+        $breedValues = ['Domestic Short Hair', 'Domestic Long Hair'];
         $temperamentValues = ['shy', 'average', 'confident'];
         $sizeValues = ['small', 'medium', 'large'];
         $furValues = ['short', 'long'];

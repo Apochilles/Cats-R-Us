@@ -6,8 +6,6 @@ import { ref } from "vue";
 
 const { cats, getCats } = useCats();
 
-onMounted(() => getCats());
-
 const keyword = ref("");
 const genders = ref([]);
 const sizes = ref([]);

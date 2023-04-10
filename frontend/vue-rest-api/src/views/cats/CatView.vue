@@ -19,7 +19,7 @@ console.log(cat);
         <div class="row">
             <div class="col-md-4">
                 <div class="card" style="width: 18rem">
-                    <img :src="cat.image" />
+                    <img :src="'/public/cats/' + cat.image" />
 
                     <div class="card-body">
                         <h5 class="card-title">{{ cat.name }}</h5>
@@ -41,6 +41,11 @@ console.log(cat);
                             ><i class="fas fa-link"></i> Enquire</a
                         >
                     </div>
+                    <button>
+                        <RouterLink class="nav-link active" to="/listings"
+                            >Back to listings</RouterLink
+                        >
+                    </button>
                 </div>
             </div>
         </div>
