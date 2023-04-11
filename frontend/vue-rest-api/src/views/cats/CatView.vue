@@ -2,8 +2,9 @@
 import { useRoute } from "vue-router";
 import useCats from "../../composables/cats";
 import { onMounted } from "vue";
+import { useAuth0 } from "@auth0/auth0-vue";
 
-const { cat, getCat, errors } = useCats();
+const { cat, getCat, errors, adoptCat } = useCats();
 
 const props = defineProps({
     id: {
@@ -12,6 +13,8 @@ const props = defineProps({
 });
 
 onMounted(() => getCat(props.id));
+const { user } = useAuth0();
+
 console.log(cat);
 </script>
 <template>
@@ -41,17 +44,11 @@ console.log(cat);
                             ><i class="fas fa-link"></i> Enquire</a
                         >
                     </div>
-                    <button v-if="cat.status === 'available'">
-                        <RouterLink
-                            class="nav-link active"
-                            :to="{
-                                name: 'CatAdopt',
-                                params: {
-                                    id: id,
-                                },
-                            }"
-                            >Adopt</RouterLink
-                        >
+                    <button
+                        v-if="cat.status === 'available'"
+                        @click="adoptCat($route.params.id, user.sub)"
+                    >
+                        Adopt
                     </button>
                     <button>
                         <RouterLink class="nav-link active" to="/listings"
