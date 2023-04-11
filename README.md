@@ -10,11 +10,11 @@
 
 ### Current features include:
 
+-   Create user with auth 
 -   View all cats available for adoption with pagination
+-   Filter cats by attribute
 -   Adopt cats and view your adopted cats
--   Filtering cats by attribute
--   Add, edit and remove cats
--   Create user
+-   Add, edit and remove cats from listing
 
 ### Future developments:
 
