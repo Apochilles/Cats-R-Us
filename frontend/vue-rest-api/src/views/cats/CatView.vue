@@ -32,7 +32,7 @@ console.log(cat);
                         <p class="card-text">
                             {{ cat.sex }}
                         </p>
-                        <p class="card-text">Colour: {{ cat.colour }}</p>
+                        <p class="card-text"></p>
                         <p class="card-text">
                             Temperament: {{ cat.temperament }}
                         </p>

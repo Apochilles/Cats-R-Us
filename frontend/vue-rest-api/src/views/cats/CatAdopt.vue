@@ -1,8 +1,9 @@
 <script setup>
 import { onMounted, reactive } from "vue";
 import useCats from "../../composables/cats";
+import { useAuth0 } from "@auth0/auth0-vue";
 
-const { cat, getCat, updateCat, errors } = useCats();
+const { cat, getCat, errors, adoptCat } = useCats();
 
 const props = defineProps({
     id: {
@@ -12,16 +13,29 @@ const props = defineProps({
 });
 
 onMounted(() => getCat(props.id));
-console.log(cat);
+const { user } = useAuth0();
 </script>
 <template>
     <div>
-        <form @submit.prevent="updateCat($route.params.id)">
+        <form @submit.prevent="adoptCat($route.params.id, user.sub)">
             <div class="form-group">
                 <label for="name">Name</label>
                 <input
                     type="text"
                     v-model="cat.name"
+                    id="name"
+                    class="form-control"
+                    placeholder="Enter name"
+                />
+                <div v-if="errors.name">
+                    <span> {{ errors.name[0] }} </span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="adopted_by">Client</label>
+                <input
+                    type="text"
+                    v-model="user.sub"
                     id="name"
                     class="form-control"
                     placeholder="Enter name"

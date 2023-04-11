@@ -52,6 +52,12 @@ class CatController extends Controller
         return response()->json("Cat Updated");
     }
 
+    public function adopt(StoreCatRequest $request, Cat $cat)
+    {
+
+        $cat->adopt($request->validated());
+        return response()->json("Cat Adopted");
+    }
     public function destroy(Cat $cat)
     {
         $cat->delete();

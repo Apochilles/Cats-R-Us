@@ -77,17 +77,7 @@ onMounted(() => getCat(props.id));
                     <span> {{ errors.description[0] }} </span>
                 </div>
             </div>
-            <div class="form-group">
-                <label for="colour">Colour</label>
-                <select v-model="cat.colour" class="form-control" id="colour">
-                    <option>grey</option>
-                    <option>orange</option>
-                    <option>black</option>
-                </select>
-                <div v-if="errors.name">
-                    <span> {{ errors.colour[0] }} </span>
-                </div>
-            </div>
+
             <div class="form-group">
                 <label for="temperament">temperament</label>
                 <select

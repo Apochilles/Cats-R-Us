@@ -35,8 +35,8 @@ export default function useCats() {
         cats.value = response.data;
         console.log(cats.value);
     };
-    const getCat = async (id) => {
-        const response = await axios.get("cats/" + id);
+    const getCat = async (id, user) => {
+        const response = await axios.get("cats/" + id + user);
         cat.value = response.data.data;
     };
     const storeCat = async (data) => {
@@ -51,12 +51,17 @@ export default function useCats() {
         }
     };
 
-    const adoptCat = async (id) => {
+    const adoptCat = async (id, user_id) => {
         try {
-            await axios.put("cats/" + id, cat.value);
+            await axios.put("cats/" + id + cat.value, {
+                ...cat.value,
+                adopted_by: user_id,
+            });
+            console.log(cat.value + "pushed");
+
             await router.push({ name: "CatIndex" });
         } catch (error) {
-            if (error.response.status === 42) {
+            if (error.response.status === 422) {
                 errors.value = error.response.data.errors;
             }
         }
@@ -82,6 +87,7 @@ export default function useCats() {
     };
 
     return {
+        adoptCat,
         cat,
         cats,
         catPage,

@@ -40,7 +40,7 @@ onMounted(() => getMyCats());
                                         {{ cat.name }}
                                     </h5>
                                     <h6 class="card-subtitle mb-2 text-muted">
-                                        {{ cat.sex }} {{ cat.colour }}
+                                        {{ cat.sex }}
                                         {{ cat.temperament }}
                                         {{ cat.gender }}
                                         {{ cat.size }}
