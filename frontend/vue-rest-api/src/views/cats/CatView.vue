@@ -41,7 +41,7 @@ console.log(cat);
                             ><i class="fas fa-link"></i> Enquire</a
                         >
                     </div>
-                    <button>
+                    <button v-if="cat.status === 'available'">
                         <RouterLink
                             class="nav-link active"
                             :to="{

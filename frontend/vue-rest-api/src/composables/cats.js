@@ -56,8 +56,8 @@ export default function useCats() {
             await axios.put("cats/" + id + cat.value, {
                 ...cat.value,
                 adopted_by: user_id,
+                status: "adopted",
             });
-            console.log(cat.value + "pushed");
 
             await router.push({ name: "CatIndex" });
         } catch (error) {
