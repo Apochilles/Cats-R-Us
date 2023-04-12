@@ -21,7 +21,7 @@ onMounted(() => getMyCats());
                         <router-link
                             style="text-decoration: none; color: inherit"
                             :to="{
-                                name: 'CatView',
+                                name: 'MyCatView',
                                 params: {
                                     id: cat.id,
                                 },

@@ -35,8 +35,19 @@ export default function useCats() {
         cats.value = response.data;
         console.log(cats.value);
     };
-    const getCat = async (id, user) => {
-        const response = await axios.get("cats/" + id + user);
+    const getMyCat = async (id) => {
+        const token = await getAccessTokenSilently();
+        const response = await axios.get("mycats/" + id, {
+            headers: {
+                Authorization: "Bearer " + token,
+            },
+        });
+        cat.value = response.data.data;
+        console.log(cat.value);
+    };
+
+    const getCat = async (id) => {
+        const response = await axios.get("cats/" + id);
         cat.value = response.data.data;
     };
     const storeCat = async (data) => {
@@ -92,6 +103,7 @@ export default function useCats() {
         cats,
         catPage,
         getCat,
+        getMyCat,
         getFilteredCats,
         getMyCats,
         filteredCats,

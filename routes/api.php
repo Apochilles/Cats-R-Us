@@ -20,5 +20,6 @@ use App\Http\Controllers\Api\V1\MyCatController;
 
 Route::group(['prefix' => 'v1'], function () {
     Route::apiResource('cats', CatController::class);
-    Route::apiResource('mycats', MyCatController::class)->middleware('auth0.authorize');;
+    // Route::get('mycats/id', 'MyCatController@show');
+    Route::apiResource('mycats', MyCatController::class)->middleware('auth0.authorize');
 });

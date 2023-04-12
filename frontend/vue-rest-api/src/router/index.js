@@ -14,20 +14,20 @@ const router = createRouter({
             component: () => import("../views/cats/CatListing.vue"),
         },
         {
+            path: "/mycats/:id",
+            name: "MyCatView",
+            component: () => import("../views/cats/MyCatView.vue"),
+            props: true,
+        },
+        {
             path: "/mycats",
             name: "MyCat",
             component: () => import("../views/cats/MyCat.vue"),
         },
         {
-            path: "/cat/:id",
+            path: "/cats/:id",
             name: "CatView",
             component: () => import("../views/cats/CatView.vue"),
-            props: true,
-        },
-        {
-            path: "/cats/:id/adopt",
-            name: "CatAdopt",
-            component: () => import("../views/cats/CatAdopt.vue"),
             props: true,
         },
         {

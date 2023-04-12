@@ -6,9 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreCatRequest;
 use App\Http\Resources\V1\CatResource;
 use App\Models\Cat;
-use Illuminate\Http\Request;
 use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\AllowedFilter;
+use Illuminate\Support\Facades\Log;
 
 
 
@@ -20,7 +20,6 @@ class CatController extends Controller
             ->whereNull('adopted_by')
             ->where('status', '=', 'available')
             ->allowedFilters([AllowedFilter::exact('gender'), 'name', 'fiv', 'temperament', 'fee', 'size', 'fur', 'desexed', 'wormed', 'image', 'status', 'age', 'breed'])
-            // ->paginate($request->get('perPage', 15));
             ->paginate()
             ->appends(request()->query());
 
@@ -33,6 +32,7 @@ class CatController extends Controller
 
     public function show(Cat $cat)
     {
+        Log::error($cat);
 
         return new CatResource($cat);
     }
@@ -52,12 +52,7 @@ class CatController extends Controller
         return response()->json("Cat Updated");
     }
 
-    public function adopt(StoreCatRequest $request, Cat $cat)
-    {
 
-        $cat->adopt($request->validated());
-        return response()->json("Cat Adopted");
-    }
     public function destroy(Cat $cat)
     {
         $cat->delete();

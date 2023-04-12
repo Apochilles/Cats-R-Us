@@ -4,7 +4,7 @@ import useCats from "../../composables/cats";
 import { onMounted } from "vue";
 import { useAuth0 } from "@auth0/auth0-vue";
 
-const { cat, getCat, adoptCat, errors } = useCats();
+const { cat, getMyCat, errors } = useCats();
 
 const props = defineProps({
     id: {
@@ -12,7 +12,7 @@ const props = defineProps({
     },
 });
 
-onMounted(() => getCat(props.id));
+onMounted(() => getMyCat(props.id)  );
 const { user } = useAuth0();
 
 console.log(cat);
@@ -44,15 +44,10 @@ console.log(cat);
                             ><i class="fas fa-link"></i> Enquire</a
                         >
                     </div>
-                    <button
-                        v-if="cat.status === 'available'"
-                        @click="adoptCat($route.params.id, user.sub)"
-                    >
-                        Adopt
-                    </button>
+
                     <button>
-                        <RouterLink class="nav-link active" to="/listings"
-                            >Back to listings</RouterLink
+                        <RouterLink class="nav-link active" to="/mycats"
+                            >Back to my cats</RouterLink
                         >
                     </button>
                 </div>
