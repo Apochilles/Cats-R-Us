@@ -17,12 +17,6 @@ class MyCatController extends Controller
             return [];
         };
 
-        Log::error(Auth::check());
-
-        Log::error("past");
-
-
-        Log::error(Auth::id());
 
 
         $user = Auth::user();
@@ -31,9 +25,7 @@ class MyCatController extends Controller
             ->paginate()
             ->appends(request()->query());
 
-        Log::error($cats);
 
-        Log::error(json_encode($user));
 
 
         return CatResource::collection($cats);
@@ -45,15 +37,13 @@ class MyCatController extends Controller
             return [];
         };
 
-        Log::error(Auth::check());
-
-        Log::error(Auth::id());
-
-
         $user = Auth::user();
 
 
-        Log::error(json_encode($mycat));
+        if ($mycat->adopted_by !== $user->getAuthIdentifier()) {
+            return response("You don't have permission to view this cat", 404);
+        }
+
 
         return new CatResource($mycat);
     }

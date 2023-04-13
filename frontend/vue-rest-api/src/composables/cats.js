@@ -12,6 +12,8 @@ export default function useCats() {
     const errors = ref([]);
     const filteredCats = ref();
     const router = useRouter();
+    const isLoading = ref(false);
+
     const { getAccessTokenSilently } = useAuth0();
 
     const getFilteredCats = async (queries) => {
@@ -36,14 +38,25 @@ export default function useCats() {
         console.log(cats.value);
     };
     const getMyCat = async (id) => {
+        isLoading.value = true;
+
         const token = await getAccessTokenSilently();
-        const response = await axios.get("mycats/" + id, {
-            headers: {
-                Authorization: "Bearer " + token,
-            },
-        });
-        cat.value = response.data.data;
-        console.log(cat.value);
+        try {
+            const response = await axios.get("mycats/" + id, {
+                headers: {
+                    Authorization: "Bearer " + token,
+                },
+            });
+            console.log(cat);
+            cat.value = response.data.data;
+        } catch (error) {
+            if (error.response.status === 404) {
+                errors.value = error.response.data.errors;
+                await router.push({ name: "CatIndex" });
+            }
+        } finally {
+            isLoading.value = false;
+        }
     };
 
     const getCat = async (id) => {
@@ -111,5 +124,6 @@ export default function useCats() {
         updateCat,
         deleteCat,
         errors,
+        isLoading,
     };
 }

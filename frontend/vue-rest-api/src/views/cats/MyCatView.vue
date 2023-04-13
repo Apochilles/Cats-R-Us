@@ -1,24 +1,25 @@
-<script setup>
+<script async setup>
 import { useRoute } from "vue-router";
 import useCats from "../../composables/cats";
 import { onMounted } from "vue";
 import { useAuth0 } from "@auth0/auth0-vue";
 
-const { cat, getMyCat, errors } = useCats();
+const { cat, getMyCat, errors, isLoading } = useCats();
 
 const props = defineProps({
     id: {
         type: String,
     },
 });
+// const isLoading = ref(true);
 
-onMounted(() => getMyCat(props.id)  );
+onMounted(() => getMyCat(props.id));
+console.log(isLoading);
 const { user } = useAuth0();
-
-console.log(cat);
 </script>
 <template>
-    <div class="container mx-auto mt-4">
+    <p v-if="isLoading">Loading...</p>
+    <div class="container mx-auto mt-4" v-if="!isLoading">
         <div class="row">
             <div class="col-md-4">
                 <div class="card" style="width: 18rem">
