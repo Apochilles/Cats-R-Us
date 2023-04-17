@@ -2,10 +2,13 @@
 import { RouterLink, RouterView } from "vue-router";
 import { useAuth0 } from "@auth0/auth0-vue";
 
-const { loginWithRedirect, user, isAuthenticated } = useAuth0();
+const { loginWithRedirect, user, isAuthenticated, logout } = useAuth0();
 
 function login() {
     loginWithRedirect();
+}
+function logoutButton() {
+    logout({ logoutParams: { returnTo: window.location.origin } });
 }
 console.log({
     loginWithRedirect,
@@ -59,8 +62,10 @@ console.log({
                                     >Listings</RouterLink
                                 >
                             </li>
-                            <li><hr class="dropdown-divider" /></li>
-                            <li class="dropdown-item">
+                            <li v-if="isAuthenticated">
+                                <hr class="dropdown-divider" />
+                            </li>
+                            <li v-if="isAuthenticated" class="dropdown-item">
                                 <RouterLink class="nav-link active" to="/mycats"
                                     >My Cats</RouterLink
                                 >
@@ -73,12 +78,18 @@ console.log({
                         >
                     </li>
                 </ul>
+
                 <div v-if="!isAuthenticated">
                     <button @click="login">Log in</button>
                 </div>
-                <pre v-if="isAuthenticated">
-        <code>{{ user.name }}</code>
-      </pre>
+                <span class="navbar-text" v-if="isAuthenticated">
+                    {{ user.name }}
+                </span>
+                <div>
+                    <button class="ms-lg-3" @click="logoutButton">
+                        Log Out
+                    </button>
+                </div>
             </div>
         </div>
     </nav>
